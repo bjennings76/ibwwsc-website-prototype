@@ -1,0 +1,22 @@
+name: Rename prototype to index
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename website-prototype.html to index.html
+        run: |
+          if [ -f website-prototype.html ]; then
+            git mv website-prototype.html index.html
+            git config user.name "bjennings76"
+            git config user.email "bjennings76@users.noreply.github.com"
+            git commit -m "Rename website-prototype.html to index.html"
+            git push
+          else
+            echo "website-prototype.html not found"
+            exit 1
+          fi
